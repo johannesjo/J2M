@@ -46,7 +46,7 @@ J2M.prototype.to_markdown = function (str) {
     // Strikethrough
     .replace(/(\s+)-(\S+.*?\S)-(\s+)/g, '$1~~$2~~$3')
     // Code Block
-    .replace(/\{code(:([a-z]+))?([:|]?(title|borderStyle|borderColor|borderWidth|bgColor|titleBGColor)=.+?)*\}([^]*)\{code\}/gm, '```$2$5```')
+    .replace(/\{code(:([a-z]+))?([:|]?(title|borderStyle|borderColor|borderWidth|bgColor|titleBGColor)=.+?)*\}([^]*?)\n?\{code\}/gm, '```$2$5\n```')
     // Pre-formatted text
     .replace(/{noformat}/g, '```')
     // Un-named Links
@@ -82,7 +82,7 @@ J2M.prototype.to_jira = function (str) {
 
   return str
   // tables
-    .replace(/^\n((?:\|.*?)+\|)[ \t]*\n((?:\|\s*?\-{3,}\s*?)+\|)[ \t]*\n((?:(?:\|.*?)+\|[ \t]*\n)*)$/gm,
+    .replace(/^\r?\n((?:\|.*?)+\|)[ \t]*\r?\n((?:\|\s*?\-{3,}\s*?)+\|)[ \t]*\r?\n((?:(?:\|.*?)+\|[ \t]*\r?\n)*)$/gm,
       function (match, headerLine, separatorLine, rowstr) {
         var headers = headerLine.match(/[^|]+(?=\|)/g);
         var separators = separatorLine.match(/[^|]+(?=\|)/g);
